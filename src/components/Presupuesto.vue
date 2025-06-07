@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-
+import Alerta from './Alerta.vue';
 const presupuesto = ref(0);
 
 const definirPresupuesto = () => {
@@ -15,6 +15,11 @@ const definirPresupuesto = () => {
     class="presupuesto"
     @submit.prevent="definirPresupuesto"
     >
+
+    <Alerta>
+        <h2>Presupuesto no valido</h2>
+        <p>Esto es un slot</p>
+    </Alerta> <!-- Esta apertura y cierre puede indicar que va tener un Slot -->
         <div class="campo">
             <label for="">Definir presupuesto</label>
             <input type="number"
