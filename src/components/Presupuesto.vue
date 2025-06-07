@@ -3,10 +3,17 @@ import { ref } from 'vue';
 
 const presupuesto = ref(0);
 
+const definirPresupuesto = () => {
+    if(presupuesto.value <= 0){
+        console.log("No es un numero");
+    }    
+}
+
 </script>
 <template>
     <form 
     class="presupuesto"
+    @submit.prevent="definirPresupuesto"
     >
         <div class="campo">
             <label for="">Definir presupuesto</label>
@@ -15,6 +22,7 @@ const presupuesto = ref(0);
                 class="nuevo-presupuesto"
                 placeholder="Añade tu presupuesto"
                 v-model="presupuesto"
+                min="0"
             />
         </div>
         <input type="submit" value="Definir presupuesto">
