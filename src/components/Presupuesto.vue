@@ -2,10 +2,15 @@
 import { ref } from 'vue';
 import Alerta from './Alerta.vue';
 const presupuesto = ref(0);
+const error = ref('')
 
 const definirPresupuesto = () => {
     if(presupuesto.value <= 0){
-        console.log("No es un numero");
+        error.value = 'Presupuesto no valido';
+        
+        setTimeout(() => {
+            error.value = '';
+        }, 3000);
     }    
 }
 
@@ -16,9 +21,8 @@ const definirPresupuesto = () => {
     @submit.prevent="definirPresupuesto"
     >
 
-    <Alerta>
-        <h2>Presupuesto no valido</h2>
-        <p>Esto es un slot</p>
+    <Alerta v-if="error">
+        {{ error }}
     </Alerta> <!-- Esta apertura y cierre puede indicar que va tener un Slot -->
         <div class="campo">
             <label for="">Definir presupuesto</label>

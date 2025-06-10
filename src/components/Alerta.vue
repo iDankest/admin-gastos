@@ -16,5 +16,6 @@
     font-size: 2rem;
     text-align: center;
     border-left: .5rem solid #b91c1c;
+    margin-bottom: 2rem;
 }
 </style>
