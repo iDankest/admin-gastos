@@ -1,5 +1,12 @@
 <script setup>
+import { ref } from 'vue';
 import Presupuesto from "./components/Presupuesto.vue"
+
+const presupuesto = ref(0);
+
+const definirPresupuesto = (cantidad) => {
+  presupuesto.value = cantidad
+}
 
 </script>
 
@@ -8,7 +15,11 @@ import Presupuesto from "./components/Presupuesto.vue"
     <header>
       <h1>Admin Gastos</h1>
       <div class="contenedor-header contenedor sombra">
-        <Presupuesto/>
+        <Presupuesto
+        v-if="presupuesto === 0"
+        @definir-presupuesto="definirPresupuesto"
+        />
+        <p v-else>Presupuesto valido</p>
       </div>
     </header>
   </div>
