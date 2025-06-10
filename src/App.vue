@@ -10,6 +10,11 @@ const modal = reactive({
     animar: false,
 })
 
+const gasto = reactive({
+    nombre: '',
+    categoria: '',
+    cantidad: 0,
+})
 const presupuesto = ref(0);
 const disponible = ref(0);
 
