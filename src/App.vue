@@ -58,6 +58,9 @@ const cerrarModal = () => {
   v-if="modal.mostrar"
   @cerrar-modal="cerrarModal"
   :modal="modal"
+  v-model:nombre="gasto.nombre"
+  v-model:categoria="gasto.categoria"
+  v-model:cantidad="gasto.cantidad"
   />
 </template>
 
