@@ -1,5 +1,8 @@
 <script setup>
+import { ref } from 'vue';
+import Alerta from './Alerta.vue' //Reutilizamos el componente Alerta
 import cerrarModal from '../assets/img/cerrar.svg'
+const error = ref('')
 
 const emit = defineEmits(['cerrar-modal', 'update:nombre', 'update:categoria', 'update:cantidad'])
 const props = defineProps({
@@ -22,8 +25,22 @@ const props = defineProps({
 })
 const agregarGasto = () => {
     //validar gasto
-
+    const { nombre, categoria, cantidad } = props //Aplicamos desestructuracion
+    if([nombre, categoria, cantidad].includes('')){//Metemos en un areglo para usar el includes
+        error.value = 'Todos los campos son obligatorios'
+        setTimeout(() => {
+            error.value = ''
+        }, 3000)
+        return
+    }
     //validar cantidad
+    if(cantidad <= 0){
+        error.value = 'La cantidad no valida'
+        setTimeout(() => {
+            error.value = ''
+        }, 3000)
+        return
+    }
 }
 </script>
 <template>
@@ -37,6 +54,7 @@ const agregarGasto = () => {
         @submit.prevent="agregarGasto"
         >
             <legend>Añadir gasto</legend>
+            <Alerta v-if="error" >{{ error }}</Alerta>
             <div class="campo">
                 <label for="nombre">Nombre gasto:</label>
                 <input type="text" id="nombre" placeholder="Añade el nombre del gasto" :value="nombre" @input="$emit('update:nombre', $event.target.value)">
