@@ -1,7 +1,7 @@
 <script setup>
 import cerrarModal from '../assets/img/cerrar.svg'
 
-const emit = defineEmits(['cerrar-modal'])
+const emit = defineEmits(['cerrar-modal', 'update:nombre', 'update:categoria', 'update:cantidad'])
 const props = defineProps({
     modal: {
         type: Object,
@@ -20,7 +20,11 @@ const props = defineProps({
         required: true
     },
 })
+const agregarGasto = () => {
+    //validar gasto
 
+    //validar cantidad
+}
 </script>
 <template>
   <div class="modal">
@@ -29,19 +33,21 @@ const props = defineProps({
     </div>
     <div class="contenedor contenedor-formulario"
     :class="[modal.animar ? 'animar' : 'cerrar']">
-        <form class="nuevo-gasto">
+        <form class="nuevo-gasto"
+        @submit.prevent="agregarGasto"
+        >
             <legend>Añadir gasto</legend>
             <div class="campo">
                 <label for="nombre">Nombre gasto:</label>
-                <input type="text" id="nombre" placeholder="Añade el nombre del gasto" :value="nombre">
+                <input type="text" id="nombre" placeholder="Añade el nombre del gasto" :value="nombre" @input="$emit('update:nombre', $event.target.value)">
             </div>
             <div class="campo">
                 <label for="cantidad">Cantidad:</label>
-                <input type="number" id="cantidad" placeholder="Añade la cantidad" :value="cantidad">
+                <input type="number" id="cantidad" placeholder="Añade la cantidad" :value="cantidad" @input="$emit('update:cantidad', +$event.target.value)">
             </div>
             <div class="campo">
                 <label for="categoria">Categoria:</label>
-                <select name="" id="categoria" :value="categoria">
+                <select name="" id="categoria" :value="categoria" @input="$emit('update:categoria', $event.target.value)">
                     <option value="">Seleccione una categoria</option>
                     <option value="ahorro">ahorro</option>
                     <option value="comida">comida</option>

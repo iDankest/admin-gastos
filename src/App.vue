@@ -13,7 +13,9 @@ const modal = reactive({
 const gasto = reactive({
     nombre: '',
     categoria: '',
-    cantidad: 0,
+    cantidad: '',
+    id: null,
+    fecha: Date.now()
 })
 const presupuesto = ref(0);
 const disponible = ref(0);
