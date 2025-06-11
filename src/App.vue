@@ -46,7 +46,14 @@ const guardarGasto = () => {
          id: generarId(),
      
     })
-    console.log(gastos.value)
+    cerrarModal()
+    Object.assign(gasto, {
+        nombre: '',
+        categoria: '',
+        cantidad: '',
+        id: null,
+        fecha: Date.now()
+    })
 }
 
 </script>
