@@ -60,7 +60,7 @@ const guardarGasto = () => {
 </script>
 
 <template>
-  <div>
+  <div :class="{fijar: modal.mostrar }">
     <header>
       <h1>Admin Gastos</h1>
       <div class="contenedor-header contenedor sombra">
@@ -128,6 +128,12 @@ const guardarGasto = () => {
   }
   h2{
     font-size: 3rem;
+  }
+  .fijar{
+    overflow: hidden;
+    position: fixed;
+    height: 100vh;
+    width: 100vh;
   }
   header{
     background-color: var(--azul);
