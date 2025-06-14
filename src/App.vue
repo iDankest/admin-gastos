@@ -61,7 +61,7 @@ const guardarGasto = () => {
     const i = gastos.value.findIndex(gasto => gasto.id === id)
     gastos.value[i] = {...gasto}
     
-  }else{//Es un gistro nuevo
+  }else{//Es un gasto nuevo
     gastos.value.push({
          ...gasto,
          id: generarId(),
