@@ -22,6 +22,7 @@ import IconoAhorro from '../assets/img/icono_ahorro.svg'
         salud : IconoSalud,
         suscripciones : IconoSuscripciones
     }
+    defineEmits(['seleccionar-gasto'])
 </script>
 
 <template>
@@ -30,7 +31,7 @@ import IconoAhorro from '../assets/img/icono_ahorro.svg'
             <img class="icono" :src="diccionarioIconos[gasto.categoria]" alt="Icono gasto">
             <div class="detalles">
                 <p class="categoria">{{ gasto.categoria }}</p>
-                <p class="nombre">{{ gasto.nombre }}</p>
+                <p class="nombre" @click="$emit('seleccionar-gasto', gasto.id)">{{ gasto.nombre }}</p>
 
                 <p class="fecha">
                     fecha: <span>{{ formatearFecha(gasto.fecha) }}</span></p>
