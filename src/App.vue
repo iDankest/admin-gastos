@@ -126,6 +126,14 @@ const gastosFiltrados = computed(() => {
     return gastos.value
 })
 
+const resetApp = () => {
+  if(confirm('¿Estas seguro de eliminar todos los gastos?')){
+    gastos.value = []
+    presupuesto.value = 0
+    
+  }
+}
+
 </script>
 
 <template>
@@ -139,6 +147,7 @@ const gastosFiltrados = computed(() => {
         />
         <ControlPresupuesto v-else
         :presupuesto="presupuesto"
+        @reset-app="resetApp"
         :disponible="disponible"
         :gastado="gastado"
         />
