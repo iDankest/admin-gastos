@@ -22,6 +22,13 @@ const gasto = reactive({
 const gastos = ref([])
 const presupuesto = ref(0);
 const disponible = ref(0);
+const gastado = ref(0);
+
+watch(gastos, () => {
+  const totalGastado = gastos.value.reduce((total, gasto) => total + gasto.cantidad, 0)
+  gastado.value = totalGastado
+}, { deep: true })
+
 
 const definirPresupuesto = (cantidad) => {
   presupuesto.value = cantidad
@@ -71,6 +78,7 @@ const guardarGasto = () => {
         <ControlPresupuesto v-else
         :presupuesto="presupuesto"
         :disponible="disponible"
+        :gastado="gastado"
         />
       </div>
     </header>
