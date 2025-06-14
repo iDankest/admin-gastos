@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import Presupuesto from "./components/Presupuesto.vue"
 import ControlPresupuesto from "./components/ControlPresupuesto.vue"
 import iconoNuevoGasto from "./assets/img/nuevo-gasto.svg"
