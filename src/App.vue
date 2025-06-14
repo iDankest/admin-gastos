@@ -30,6 +30,18 @@ watch(gastos, () => {
   disponible.value = presupuesto.value - totalGastado
 }, { deep: true })
 
+watch(modal, () => {
+  if(!modal.mostrar){
+    //Reiniciar modal de gasto
+    Object.assign(gasto, {
+        nombre: '',
+        categoria: '',
+        cantidad: '',
+        id: null,
+        fecha: Date.now()
+    })
+  }
+}, { deep: true })
 
 const definirPresupuesto = (cantidad) => {
   presupuesto.value = cantidad
@@ -65,6 +77,12 @@ const guardarGasto = () => {
     })
 }
 
+const seleccionarGasto = id =>{
+    const gastoEditar = gastos.value.filter(gasto => gasto.id === id)[0]
+    Object.assign(gasto, gastoEditar)
+    mostrarModal()
+}
+
 </script>
 
 <template>
@@ -92,6 +110,7 @@ const guardarGasto = () => {
         v-for="gasto in gastos"
         :key="gasto.id"
         :gasto="gasto"
+        @seleccionar-gasto="seleccionarGasto"
         />
     </div>
 
