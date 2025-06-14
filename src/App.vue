@@ -33,14 +33,8 @@ watch(gastos, () => {
 watch(modal, () => {
   if(!modal.mostrar){
     //Reiniciar modal de gasto
-    Object.assign(gasto, {
-        nombre: '',
-        categoria: '',
-        cantidad: '',
-        id: null,
-        fecha: Date.now()
-    })
-  }
+    reiniciarStateGasto()
+    } 
 }, { deep: true })
 
 const definirPresupuesto = (cantidad) => {
@@ -68,6 +62,11 @@ const guardarGasto = () => {
      
     })
     cerrarModal()
+    reiniciarStateGasto()
+}
+
+//Funcion para el objeto del gasto
+const reiniciarStateGasto = () => {
     Object.assign(gasto, {
         nombre: '',
         categoria: '',
