@@ -4,7 +4,7 @@ import Alerta from './Alerta.vue' //Reutilizamos el componente Alerta
 import cerrarModal from '../assets/img/cerrar.svg'
 const error = ref('')
 
-const emit = defineEmits(['cerrar-modal', 'guardar-gasto', 'update:nombre', 'update:categoria', 'update:cantidad'])
+const emit = defineEmits(['cerrar-modal', 'guardar-gasto', 'update:nombre', 'update:categoria', 'update:cantidad', 'eliminar-gasto'])
 const props = defineProps({
     modal: {
         type: Object,
@@ -113,6 +113,7 @@ const isEditing = computed(()=>{
             <!-- O input submit :value='id === null ? 'Agregar gasto' : 'Guardar cambios' Esta es una forma de hacerlo -->
             <input type="submit" value="Guardar cambios" v-else>
         </form>
+        <button type="button" v-if="isEditing" @click="$emit('eliminar-gasto', id)" class="btn-eliminar">Eliminar gasto</button>
     </div>
   </div>
 </template>
@@ -188,8 +189,24 @@ right: 0;
     background-color: #2563eb;
     cursor: pointer;
 }
-
-
+.btn-eliminar{
+    background-color: #dc2626;
+    border: none;
+    padding: 1rem;
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 2rem;
+    color: var(--blanco);
+    font-weight: 900;
+    width: 100%;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+.btn-eliminar:hover{
+    background-color: #b91c1c;
+    cursor: pointer;
+}
 
 
 </style>

@@ -89,6 +89,13 @@ const seleccionarGasto = id =>{
     mostrarModal()
 }
 
+const eliminarGasto = id =>{
+  if(confirm('¿Estas seguro de eliminar este gasto?')){ //como un Alert de confirmacion
+    gastos.value = gastos.value.filter(gastoState => gastoState.id !== gasto.id)
+    cerrarModal()
+  }
+}
+
 </script>
 
 <template>
@@ -128,6 +135,7 @@ const seleccionarGasto = id =>{
   v-if="modal.mostrar"
   @cerrar-modal="cerrarModal"
   @guardar-gasto="guardarGasto"
+  @eliminar-gasto="eliminarGasto"
   :modal="modal"
   :disponible="disponible"
   :id="gasto.id"
