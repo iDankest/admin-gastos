@@ -14,13 +14,13 @@ import IconoAhorro from '../assets/img/icono_ahorro.svg'
     import IconoSalud from '../assets/img/icono_salud.svg'
     import IconoSuscripciones from '../assets/img/icono_suscripciones.svg'
     const diccionarioIconos = {
-        ahorro : IconoAhorro,
-        comida : IconoComida,
-        casa : IconoCasa,
-        gastos : IconoGastos,
-        ocio : IconoOcio,
-        salud : IconoSalud,
-        suscripciones : IconoSuscripciones
+        ahorro: IconoAhorro,
+        comida: IconoComida,
+        casa: IconoCasa,
+        gastos: IconoGastos,
+        ocio: IconoOcio,
+        salud: IconoSalud,
+        suscripciones: IconoSuscripciones
     }
     defineEmits(['seleccionar-gasto'])
 </script>
@@ -28,7 +28,12 @@ import IconoAhorro from '../assets/img/icono_ahorro.svg'
 <template>
     <div class="gasto sombra">
         <div class="contenido">
-            <img class="icono" :src="diccionarioIconos[gasto.categoria]" alt="Icono gasto">
+            <img 
+                class="icono" 
+                :src="diccionarioIconos[gasto.categoria] || IconoGastos" 
+                :alt="`Icono ${gasto.categoria}`"
+                v-if="gasto.categoria"
+            >
             <div class="detalles">
                 <p class="categoria">{{ gasto.categoria }}</p>
                 <p class="nombre" @click="$emit('seleccionar-gasto', gasto.id)">{{ gasto.nombre }}</p>
@@ -56,9 +61,7 @@ gap: 2rem;
 .icono{
     width: 5rem;
 }
-.detalles{
-    
-}
+
 .detalles p{
     margin: 0 0 1rem 0;
 }
