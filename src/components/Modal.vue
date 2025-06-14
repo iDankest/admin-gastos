@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import Alerta from './Alerta.vue' //Reutilizamos el componente Alerta
 import cerrarModal from '../assets/img/cerrar.svg'
 const error = ref('')
@@ -72,6 +72,9 @@ const agregarGasto = () => {
   
     emit('guardar-gasto', {nombre, categoria, cantidad})
 }
+const isEditing = computed(()=>{
+    return props.id //Esto es otra forma mas descritiva hacer que tenga una idea apoximada de lo que hace por si otro dev lee este codigo
+})
 </script>
 <template>
   <div class="modal">
@@ -83,7 +86,7 @@ const agregarGasto = () => {
         <form class="nuevo-gasto"
         @submit.prevent="agregarGasto"
         >
-            <legend>Añadir gasto</legend>
+            <legend>{{ isEditing ? 'Editar gasto' : 'Agregar gasto' }}</legend>
             <Alerta v-if="error" >{{ error }}</Alerta>
             <div class="campo">
                 <label for="nombre">Nombre gasto:</label>
@@ -106,7 +109,9 @@ const agregarGasto = () => {
                     <option value="suscripciones">suscripciones</option>
                 </select>
             </div>
-            <input type="submit" value="Agregar gasto">
+            <input type="submit" value="Agregar gasto" v-if="id === null">
+            <!-- O input submit :value='id === null ? 'Agregar gasto' : 'Guardar cambios' Esta es una forma de hacerlo -->
+            <input type="submit" value="Guardar cambios" v-else>
         </form>
     </div>
   </div>
