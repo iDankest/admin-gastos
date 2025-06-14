@@ -104,6 +104,7 @@ const guardarGasto = () => {
   @cerrar-modal="cerrarModal"
   @guardar-gasto="guardarGasto"
   :modal="modal"
+  :disponible="disponible"
   v-model:nombre="gasto.nombre"
   v-model:categoria="gasto.categoria"
   v-model:cantidad="gasto.cantidad"

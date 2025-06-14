@@ -22,10 +22,14 @@ const props = defineProps({
         type: [Number, String],
         required: true
     },
+    disponible: {
+        type: Number,
+        required: true
+    }
 })
 const agregarGasto = () => {
     //validar gasto
-    const { nombre, categoria, cantidad } = props //Aplicamos desestructuracion
+    const { nombre, categoria, cantidad, disponible } = props //Aplicamos desestructuracion
     if([nombre, categoria, cantidad].includes('')){//Metemos en un areglo para usar el includes
         error.value = 'Todos los campos son obligatorios'
         setTimeout(() => {
@@ -36,6 +40,14 @@ const agregarGasto = () => {
     //validar cantidad
     if(cantidad <= 0){
         error.value = 'La cantidad no valida'
+        setTimeout(() => {
+            error.value = ''
+        }, 3000)
+        return
+    }
+    //Validar que el usuario no pueda gastar mas de lo disponible
+    if(cantidad > disponible){
+        error.value = 'Excedes el presupuesto'
         setTimeout(() => {
             error.value = ''
         }, 3000)
