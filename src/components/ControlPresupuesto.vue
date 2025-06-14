@@ -1,5 +1,7 @@
 <script setup>
-import Imagen from '../assets/img/grafico.jpg'
+import { computed } from 'vue'
+import CircleProgress from 'vue3-circle-progress'
+import 'vue3-circle-progress/dist/circle-progress.css'
 import { formatearCantidad } from '../helpers/index'
 
 const props = defineProps({
@@ -17,11 +19,31 @@ const props = defineProps({
     }
 })
 defineEmits(['reset-app'])
+const porcentaje = computed(() => {
+    return parseInt(((props.presupuesto - props.disponible) / props.presupuesto) * 100)
+})
 </script>
 <template>
   <div class="dos-columnas">
     <div class="contenedor-grafico">
-      <img :src="Imagen" alt="Grafico">
+        <p class="porcentaje">{{ porcentaje }}%</p>
+      <CircleProgress
+      :percent="porcentaje"
+      :size="250"
+      :border-width="30"
+      :border-bg-width="30"
+      fill-color="black"
+      empty-color="gray"
+      transition="500"
+      viewport="true"
+      :is-gradient="true"
+      :gradient="{
+        angle: 90,
+        startColor: '#090979',
+        stopColor: '#00D4FF'
+      }"
+      :is-shadow="true"
+      />
     </div>
     <div class="contenedor-presupuesto">
         <button
@@ -50,6 +72,21 @@ defineEmits(['reset-app'])
 
 
 <style scoped>
+.contenedor-grafico{
+    position: relative;
+}
+.porcentaje{
+    font-size: 3rem;
+    margin: auto;
+    font-weight: 900;
+    color: var(--gris-oscuro);
+    text-align: center;
+    position: absolute;
+    top: calc(50% - 1.5rem);
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
 
 .reset-app{
     width: 100%;
