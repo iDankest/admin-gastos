@@ -56,11 +56,18 @@ const cerrarModal = () => {
 }
 
 const guardarGasto = () => {
+  if(gasto.id){//Es un gasto existente
+    const { id } = gasto
+    const i = gastos.value.findIndex(gasto => gasto.id === id)
+    gastos.value[i] = {...gasto}
+    
+  }else{//Es un gistro nuevo
     gastos.value.push({
          ...gasto,
          id: generarId(),
      
     })
+  }
     cerrarModal()
     reiniciarStateGasto()
 }
@@ -123,6 +130,7 @@ const seleccionarGasto = id =>{
   @guardar-gasto="guardarGasto"
   :modal="modal"
   :disponible="disponible"
+  :id="gasto.id"
   v-model:nombre="gasto.nombre"
   v-model:categoria="gasto.categoria"
   v-model:cantidad="gasto.cantidad"

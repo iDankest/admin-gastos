@@ -25,11 +25,16 @@ const props = defineProps({
     disponible: {
         type: Number,
         required: true
+    },
+    id: {
+        type: [String, null],
+        required: true
     }
 })
+const old = props.cantidad //Tomamos el valor original de la cantidad para posteriores validarlo
 const agregarGasto = () => {
     //validar gasto
-    const { nombre, categoria, cantidad, disponible } = props //Aplicamos desestructuracion
+    const { nombre, categoria, cantidad, disponible, id } = props //Aplicamos desestructuracion
     if([nombre, categoria, cantidad].includes('')){//Metemos en un areglo para usar el includes
         error.value = 'Todos los campos son obligatorios'
         setTimeout(() => {
@@ -46,13 +51,25 @@ const agregarGasto = () => {
         return
     }
     //Validar que el usuario no pueda gastar mas de lo disponible
-    if(cantidad > disponible){
+    if(id){
+        //Tomar en cuenta el gasto ya realizado
+        if(cantidad > disponible + old){
+            error.value = 'Excedes el presupuesto'
+            setTimeout(() => {
+                error.value = ''
+            }, 3000)
+            return
+        }
+    }else{ //Si no es un gasto existente 
+         if(cantidad > disponible){
         error.value = 'Excedes el presupuesto'
         setTimeout(() => {
             error.value = ''
         }, 3000)
         return
+    } 
     }
+  
     emit('guardar-gasto', {nombre, categoria, cantidad})
 }
 </script>
